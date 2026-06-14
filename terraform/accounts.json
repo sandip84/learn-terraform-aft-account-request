@@ -20,7 +20,9 @@
       "group": "non-prod"
     },
     "account_customizations_name": "sandbox"
-  },
+  }
+
+  /*,
 
   "app_dev": {
     "control_tower_parameters": {
@@ -43,5 +45,6 @@
       "group": "non-prod"
     },
     "account_customizations_name": "sandbox"
-  }
+  }*/
+
 }
