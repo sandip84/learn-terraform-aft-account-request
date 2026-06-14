@@ -17,7 +17,7 @@ module "sandbox" {
 
   change_management_parameters = {
     change_requested_by = "Sandip"
-    change_reason       = "Sandy: Learn AWS Control Tower Account Factory for Terraform"
+    change_reason       = "Sandykr: Learn AWS Control Tower Account Factory for Terraform"
   }
 
   custom_fields = {
