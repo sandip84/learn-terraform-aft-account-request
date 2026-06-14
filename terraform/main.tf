@@ -12,7 +12,7 @@ module "sandbox" {
 
   account_tags = {
     "Learn Tutorial" = "AFT"
-    "Org" = "Sandy & Co.."
+    "Org" = "Sandy and Co."
   }
 
   change_management_parameters = {
