@@ -1,28 +1,24 @@
-module "sandbox" {
-  source = "./modules/aft-account-request"
+locals {
+  account_requests = jsondecode(file("${path.module}/accounts.json"))
+}
 
-  control_tower_parameters = {
-    AccountEmail              = "sakush84+aft31@gmail.com"
-    AccountName               = "aft-created-ac"
-    ManagedOrganizationalUnit = "Sandbox"
-    SSOUserEmail              = "sakush84@gmail.com"
-    SSOUserFirstName          = "Sandip"
-    SSOUserLastName           = "Sharma"
-  }
+module "account_requests" {
+  source   = "./modules/aft-account-request"
+  for_each = local.account_requests
 
-  account_tags = {
-    "Learn Tutorial" = "AFT"
-    "Org" = "Sandy and Co."
-  }
+  control_tower_parameters = each.value.control_tower_parameters
 
-  change_management_parameters = {
-    change_requested_by = "Sandip"
-    change_reason       = "Sandykr: Learn AWS Control Tower Account Factory for Terraform"
-  }
+  account_tags = try(each.value.account_tags, {})
 
-  custom_fields = {
-    group = "non-prod"
-  }
+  change_management_parameters = each.value.change_management_parameters
 
-  account_customizations_name = "sandbox"
+  custom_fields = try(each.value.custom_fields, {})
+
+  account_customizations_name = try(each.value.account_customizations_name, null)
+}
+
+# Preserve the existing request's Terraform address during this migration.
+moved {
+  from = module.sandbox
+  to   = module.account_requests["sandbox"]
 }
